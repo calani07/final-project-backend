@@ -106,7 +106,7 @@ async function main() {
 
 main()
   .then(() => {
-    app.listen(port, () => console.log("The server is running!!!"));
+    app.listen(port, () => console.log("Server don dey run oo!!!"));
     //createTimeIntervalDocs();
   })
   .catch(() => {
