@@ -9,6 +9,11 @@ const db = require("./db.js");
 
 app.use(express.json());
 
+app.post("/user", async (req, res) => {
+  await db.User.create(req.body);
+  res.send(`Welcome ${req.body.name}!`);
+});
+
 // Updating Packing Slot Status
 app.patch("/update-parking-slot-status", async (req, res) => {
   const start_time = req.body.start_time;
