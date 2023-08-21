@@ -10,12 +10,24 @@ const db = require("./db.js");
 app.use(express.json());
 
 // New User Registration
+let registrationInProgress = false;
 app.post("/new-user-registration", async (req, res) => {
-  const user = new db.User(req.body); // Create a new User instance
+  if (registrationInProgress) {
+    // If registration is already in progress, don't proceed
+    return res.status(400).send("Registration in progress");
+  }
+
+  registrationInProgress = true;
+
   try {
+    const user = new db.User(req.body); // Create a new User instance
     await user.save(); // Save the user data to the database
+
+    registrationInProgress = false; // Reset the flag
+
     res.status(201).send("User registered successfully!");
   } catch (error) {
+    registrationInProgress = false; // Reset the flag
     res.status(500).send("Registration failed");
   }
 });
