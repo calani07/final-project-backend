@@ -11,13 +11,11 @@ app.use(express.json());
 
 // New User Registration
 app.post("/new-user-registration", async (req, res) => {
+  const user = new db.User(req.body); // Create a new User instance
   try {
-    const user = new db.User(req.body); // Create a new User instance
     await user.save(); // Save the user data to the database
-
     res.status(201).send("User registered successfully!");
   } catch (error) {
-    console.error("Error registering user:", error);
     res.status(500).send("Registration failed");
   }
 });
