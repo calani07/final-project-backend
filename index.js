@@ -7,6 +7,8 @@ const password = "DIT1pe0Rs4qs8qCb";
 const connectionString = `mongodb+srv://oforicalebani:${password}@final-project-cluster.qr6ubsf.mongodb.net/?retryWrites=true&w=majority`;
 const db = require("./db.js");
 
+app.use(express.json());
+
 // Updating Packing Slot Status
 app.patch("/update-parking-slot-status", async (req, res) => {
   const start_time = req.body.start_time;
@@ -104,7 +106,7 @@ async function main() {
 
 main()
   .then(() => {
-    app.listen(port, () => console.log("Server don dey run oo!!!"));
+    app.listen(port, () => console.log("The server is running!!!"));
   })
   .catch(() => {
     console.log("An error occurred!!!");
