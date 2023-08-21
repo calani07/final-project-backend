@@ -6,31 +6,41 @@ const username = "oforicalebani";
 const password = "DIT1pe0Rs4qs8qCb";
 const connectionString = `mongodb+srv://oforicalebani:${password}@final-project-cluster.qr6ubsf.mongodb.net/?retryWrites=true&w=majority`;
 const db = require("./db.js");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const router = express.Router();
 
+const register = (req, res, next) => {
+  bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
+    if (err) {
+      res.json({
+        error: err,
+      });
+    }
+    let user = new db.User({
+      username: req.body.username,
+      email: req.body.email,
+      password: hashedPass,
+      contact: req.body.contact,
+      carNumber: req.body.carNumber,
+    });
+    user
+      .save()
+      .then((user) => {
+        res.json({
+          message: "User Added Successfully!!",
+        });
+      })
+      .catch((error) => {
+        res.json({
+          message: "An error occured!",
+        });
+      });
+  });
+};
+
+router.post("/register", register);
 app.use(express.json());
-
-// New User Registration
-let registrationInProgress = false;
-app.post("/new-user-registration", async (req, res) => {
-  if (registrationInProgress) {
-    // If registration is already in progress, don't proceed
-    return res.status(400).send("Registration in progress");
-  }
-
-  registrationInProgress = true;
-
-  try {
-    const user = new db.User(req.body); // Create a new User instance
-    await user.save(); // Save the user data to the database
-
-    registrationInProgress = false; // Reset the flag
-
-    res.status(201).send("User registered successfully!");
-  } catch (error) {
-    registrationInProgress = false; // Reset the flag
-    res.status(500).send("Registration failed");
-  }
-});
 
 // Updating Packing Slot Status
 app.patch("/update-parking-slot-status", async (req, res) => {
