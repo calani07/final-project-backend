@@ -8,7 +8,6 @@ const connectionString = `mongodb+srv://oforicalebani:${password}@final-project-
 const db = require("./db.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const router = express.Router();
 
 const register = (req, res, next) => {
   bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
@@ -39,7 +38,7 @@ const register = (req, res, next) => {
   });
 };
 
-router.post("/register", register);
+app.post("/register", register);
 app.use(express.json());
 
 // Updating Packing Slot Status
