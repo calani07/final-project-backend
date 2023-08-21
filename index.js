@@ -43,7 +43,7 @@ app.patch("/update-parking-slot-status", async (req, res) => {
   if (count === updateResult.modifiedCount) {
     res.send("Booking successful");
   } else {
-    res.send("Booking failed!");
+    res.send("Booking failed!!!");
   }
 });
 
