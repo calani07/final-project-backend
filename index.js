@@ -9,6 +9,19 @@ const db = require("./db.js");
 
 app.use(express.json());
 
+// New User Registration
+app.post("/new-user-registration", async (req, res) => {
+  try {
+    const user = new User(req.body); // Create a new User instance
+    await user.save(); // Save the user data to the database
+
+    res.status(201).send("User registered successfully!");
+  } catch (error) {
+    console.error("Error registering user:", error);
+    res.status(500).send("Registration failed");
+  }
+});
+
 // Updating Packing Slot Status
 app.patch("/update-parking-slot-status", async (req, res) => {
   const start_time = req.body.start_time;
