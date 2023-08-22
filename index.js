@@ -28,7 +28,7 @@ app.post("/new-user-registration", async (req, res) => {
       contact: contact,
       carNumber: carNumber,
     });
-
+    console.log(user);
     await user.save(); // Save the user data to the database
 
     res.status(201).send("User registered successfully!");
