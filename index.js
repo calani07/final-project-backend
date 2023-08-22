@@ -10,24 +10,31 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const bodyParse = require("body-parser");
 
-app.use(bodyParse.json());
-app.use(express.static("public"));
-app.use(
-  bodyParse.urlencoded({
-    extended: true,
-  })
-);
 
-//app.use(express.json());
 
-app
-  .get("/", (req, res) => {
-    res.set({
-      "Allow-access-Allow-Origin": "*",
-    });
-    return res.redirect();
+app.use(express.json());
+
+
+  app.post("/sign_up", async (req,res)=>{
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+    const contact = req.body.contact;
+    const carNumber = req.body.carNumber;
+    
+    const data = {
+      "username":username,
+      "email":email,
+      "password":password,
+      "contact":contact,
+      "carNumber":carNumber
+    }
+
+    db.collection ("users").insertOne(data,(err,collection)=>{
+      if(err) throw err;
+      res.send("Registration successful");
+    })
   })
-  .listen(3000);
 
 // Updating Packing Slot Status
 app.patch("/update-parking-slot-status", async (req, res) => {
@@ -121,7 +128,10 @@ app.post("/check-available-slots", async (req, res) => {
 });
 
 async function main() {
-  await mongoose.connect(connectionString);
+  await mongoose.connect(connectionString,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true 
+  });
 }
 
 main()
