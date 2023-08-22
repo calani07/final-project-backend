@@ -12,25 +12,30 @@ const bodyParse = require("body-parser");
 
 app.use(express.json());
 
-app.post("/sign_up", async (req, res) => {
-  const username = req.body.username;
-  const email = req.body.email;
-  const password = req.body.password;
-  const contact = req.body.contact;
-  const carNumber = req.body.carNumber;
+// New User Registration
+app.post("/new-user-registration", async (req, res) => {
+  try {
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+    const contact = req.body.contact;
+    const carNumber = req.body.carNumber;
 
-  const data = {
-    username: username,
-    email: email,
-    password: password,
-    contact: contact,
-    carNumber: carNumber,
-  };
+    const user = new db.User({
+      username: username,
+      email: email,
+      password: password,
+      contact: contact,
+      carNumber: carNumber,
+    });
 
-  db.collection("users").insertOne(data, (err, collection) => {
-    if (err) throw err;
-    res.send("Registration successful");
-  });
+    await user.save(); // Save the user data to the database
+
+    res.status(201).send("User registered successfully!");
+  } catch (error) {
+    console.error("Error registering user:", error);
+    res.status(500).send("Registration failed");
+  }
 });
 
 // Updating Packing Slot Status
