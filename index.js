@@ -8,38 +8,26 @@ const connectionString = `mongodb+srv://oforicalebani:${password}@final-project-
 const db = require("./db.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const bodyParse = require("body-parser");
 
-const register = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
-    if (err) {
-      res.json({
-        error: err,
-      });
-    }
-    let user = new db.User({
-      username: req.body.username,
-      email: req.body.email,
-      password: hashedPass,
-      contact: req.body.contact,
-      carNumber: req.body.carNumber,
+app.use(bodyParse.json());
+app.use(express.static("public"));
+app.use(
+  bodyParse.urlencoded({
+    extended: true,
+  })
+);
+
+//app.use(express.json());
+
+app
+  .get("/", (req, res) => {
+    res.set({
+      "Allow-access-Allow-Origin": "*",
     });
-    user
-      .save()
-      .then((user) => {
-        res.json({
-          message: "User Added Successfully!!",
-        });
-      })
-      .catch((error) => {
-        res.json({
-          message: "An error occured!",
-        });
-      });
-  });
-};
-
-app.post("/register", register);
-app.use(express.json());
+    return res.redirect();
+  })
+  .listen(3000);
 
 // Updating Packing Slot Status
 app.patch("/update-parking-slot-status", async (req, res) => {
