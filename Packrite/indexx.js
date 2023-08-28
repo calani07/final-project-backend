@@ -94,5 +94,5 @@ async function bookSlotLink() {
     }
   );
   const message = await response.json();
-  console.log(message);
+  alert(message);
 }
