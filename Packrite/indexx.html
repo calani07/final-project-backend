@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Packrite</title>
+
+    <!-- Google font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div id="booking" class="section">
+      <div class="section-center">
+        <div class="container">
+          <div class="row">
+            <div class="booking-form">
+              <div class="form-header">
+                <h1>Book a slot</h1>
+              </div>
+              <form id="myForm">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <span class="form-label">Name</span>
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Enter your name"
+                        id="name"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <span class="form-label">Phone</span>
+                      <input
+                        class="form-control"
+                        type="tel"
+                        placeholder="Enter your phone number"
+                        id="phone"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+                <!--div class="form-group">
+								<span class="form-label">Phone</span>
+								<input class="form-control" type="tel" placeholder="Enter your phone number"required>
+							</div> -->
+                <div class="form-group">
+                  <span class="form-label">Car number </span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Enter car number"
+                    id="number"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <span class="form-label">Car Model</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Enter car Model"
+                    id="model"
+                    required
+                  />
+                </div>
+                <div class="row">
+                  <!-- <div class="col-sm-5">
+									<div class="form-group">
+										<span class="form-label">Pickup Date</span>
+										<input class="form-control" type="date" required>
+									</div>
+								</div> -->
+                  <div class="col-sm-7">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <span class="form-label">Arrival Time</span>
+                          <select class="form-control" id="atime" required>
+                            <option>08:00</option>
+                            <option>08:30</option>
+                            <option>09:00</option>
+                            <option>09:30</option>
+                            <option>10:00</option>
+                            <option>10:30</option>
+                            <option>11:00</option>
+                            <option>11:30</option>
+                            <option>12:00</option>
+                            <option>12:30</option>
+                            <option>13:00</option>
+                            <option>13:30</option>
+                            <option>14:00</option>
+                            <option>14:30</option>
+                            <option>15:00</option>
+                            <option>15:30</option>
+                            <option>16:00</option>
+                            <option>16:30</option>
+                            <option>17:00</option>
+                            <option>17:30</option>
+                            <option>18:00</option>
+                            <option>18:30</option>
+                            <option>19:00</option>
+                            <option>19:30</option>
+                          </select>
+                          <span class="select-arrow"></span>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <span class="form-label">Departure</span>
+                          <select class="form-control" id="dtime" required>
+                            <option>08:30</option>
+                            <option>09:00</option>
+                            <option>09:30</option>
+                            <option>10:00</option>
+                            <option>10:30</option>
+                            <option>11:00</option>
+                            <option>11:30</option>
+                            <option>12:00</option>
+                            <option>12:30</option>
+                            <option>13:00</option>
+                            <option>13:30</option>
+                            <option>14:00</option>
+                            <option>14:30</option>
+                            <option>15:00</option>
+                            <option>15:30</option>
+                            <option>16:00</option>
+                            <option>16:30</option>
+                            <option>17:00</option>
+                            <option>17:30</option>
+                            <option>18:00</option>
+                            <option>18:30</option>
+                            <option>19:00</option>
+                            <option>19:30</option>
+                            <option>20:00</option>
+                          </select>
+                          <span class="select-arrow"></span>
+                        </div>
+                      </div>
+
+                      <div class="form-btn">
+                        <button class="submit-btnn" id="selslot-btn">
+                          Select Slot
+                        </button>
+                      </div>
+
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <span class="form-label">slot</span>
+                          <select
+                            class="form-control"
+                            id="slot"
+                            required
+                          ></select>
+                          <span class="select-arrow"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-btn">
+                  <button class="submit-btn" type="submit" id="open-popup-btn">
+                    Book Now
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--
+    <div class="popup center">
+      <div class="icon">
+        <i class="bx bx-check"></i>
+      </div>
+      <div class="title">Success!!</div>
+      <div class="description">Your booking has been made Successfully</div>
+      <div class="dismiss-btn">
+        <button id="dismiss-popup-btn" onclick="toogle()">Dismiss</button>
+      </div>
+    </div>
+    <script type="text/javascript">
+      function toggle() {
+        var blur = document.getElementById("booking");
+        blur.classList.toggle("active");
+      }
+    </script> -->
+    <script src="indexx.js"></script>
+  </body>
+</html>

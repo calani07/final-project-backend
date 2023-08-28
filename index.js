@@ -10,6 +10,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const bodyParse = require("body-parser");
 
+app.use(express.static("Packrite"));
 app.use(express.json());
 
 // New User Registration
@@ -21,20 +22,53 @@ app.post("/new-user-registration", async (req, res) => {
     const contact = req.body.contact;
     const carNumber = req.body.carNumber;
 
-    const user = new db.User({
+    console.log(username);
+
+    // Hash the password using bcrypt
+    const hashedPass = await bcrypt.hash(password, 10);
+
+    console.log(hashedPass);
+
+    // Create a new user using the database model
+    await db.User.create({
       username: username,
       email: email,
-      password: password,
+      password: hashedPass,
       contact: contact,
       carNumber: carNumber,
     });
-    console.log(user);
-    await user.save(); // Save the user data to the database
 
-    res.status(201).send("User registered successfully!");
+    res.status(201).json("User registered successfully!");
   } catch (error) {
     console.error("Error registering user:", error);
-    res.status(500).send("Registration failed");
+    res.status(500).json("Registration failed");
+  }
+});
+
+// Login Process
+app.post("/login", async (req, res) => {
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    // Retrieve the user from the database based on the email
+    const user = await db.User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json("User not found");
+    }
+
+    // Compare the provided password with the hashed password stored in the database
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      return res.status(401).json("Incorrect password");
+    }
+
+    res.status(200).json("Login successful!");
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json("Login failed");
   }
 });
 
@@ -70,9 +104,9 @@ app.patch("/update-parking-slot-status", async (req, res) => {
   const updateResult = await db.TimeInterval.updateMany(filter, update);
   const count = await db.TimeInterval.countDocuments(filter);
   if (count === updateResult.modifiedCount) {
-    res.send("Booking successful");
+    res.json("Booking successful");
   } else {
-    res.send("Booking failed!!!");
+    res.json("Booking failed!!!");
   }
 });
 
@@ -126,7 +160,7 @@ app.post("/check-available-slots", async (req, res) => {
   }
 
   // Step 4: Send the selected slots as the response
-  res.send(selected_slots);
+  res.json(selected_slots);
 });
 
 async function main() {
