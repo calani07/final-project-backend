@@ -50,13 +50,16 @@ async function availableSlotLink() {
     start_time: startTime.value,
     end_time: endTime.value,
   };
-  const response = await fetch("http://localhost:3000/check-available-slots", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(slotData),
-  });
+  const response = await fetch(
+    "https://final-project-backend-2gdn.onrender.com/check-available-slots",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(slotData),
+    }
+  );
   const result = await response.json();
   console.log(result);
   result.forEach((slotValue) => {
@@ -81,7 +84,7 @@ async function bookSlotLink() {
     isBeingBooked: "false",
   };
   const response = await fetch(
-    "http://localhost:3000/update-parking-slot-status",
+    "https://final-project-backend-2gdn.onrender.com/update-parking-slot-status",
     {
       method: "PATCH",
       headers: {

@@ -38,13 +38,16 @@ async function registrationLink() {
     contact: contactInput.value,
     carNumber: carNumberInput.value,
   };
-  const response = await fetch("http://localhost:3000/new-user-registration", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userData),
-  });
+  const response = await fetch(
+    "https://final-project-backend-2gdn.onrender.com/new-user-registration",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    }
+  );
   const result = await response.json();
 }
 
@@ -53,13 +56,16 @@ async function loginLink() {
     email: loginEmailInput.value,
     password: loginPasswordInput.value,
   };
-  const response = await fetch("http://localhost:3000/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userLoginData),
-  });
+  const response = await fetch(
+    "https://final-project-backend-2gdn.onrender.com/login",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userLoginData),
+    }
+  );
 
   const result = await response.json();
 
